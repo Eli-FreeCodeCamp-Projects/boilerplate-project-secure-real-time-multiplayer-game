@@ -7,8 +7,47 @@ const cors = require('cors');
 
 const fccTestingRoutes = require('./routes/fcctesting.js');
 const runner = require('./test-runner.js');
+const helmet = require('helmet');
 
 const app = express();
+//-> Set up helmet
+app.use(helmet({
+  frameguard: {         // configure
+    action: 'deny'
+  },
+  xPoweredBy: false,
+  contentSecurityPolicy: {    // enable and configure
+    directives: {
+      defaultSrc: ["'none'"],
+      styleSrc: ["'self'"],
+      scriptSrc: ["'self'", 'code.jquery.com'],
+      imgSrc: ["'self'", 'cdn.freecodecamp.org'],
+      FormAction: ["'self'"],
+      baseUri: ["'self'"],
+      frameAncestors: ["'self'", "replit.com"],
+      connectSrc: ["'self'"],
+    }
+  },
+  dnsPrefetchControl: { allow: false },     // disable,
+  xFrameOptions: { action: "sameorigin" },
+  strictTransportSecurity: {
+    includeSubDomains: true,
+    force: true,
+  },
+  referrerPolicy:{
+    policy: "same-origin"
+  }
+}));
+
+//-> Set headers
+app.use(function (req, res, next) {
+  res.setHeader('X-Powered-By', 'PHP 7.4.3')
+  res.setHeader('surrogate-control', 'no-store')
+  res.setHeader('cache-control', 'no-store, no-cache, must-revalidate, proxy-revalidate')
+  res.setHeader('pragma', 'no-cache')
+  res.setHeader('expires', '0')
+  next()
+})
 
 app.use('/public', express.static(process.cwd() + '/public'));
 app.use('/assets', express.static(process.cwd() + '/assets'));
