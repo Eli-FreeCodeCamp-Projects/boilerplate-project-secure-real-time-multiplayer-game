@@ -19,12 +19,13 @@ app.use(helmet({
   contentSecurityPolicy: {    // enable and configure
     directives: {
       defaultSrc: ["'none'"],
-      styleSrc: ["'self'"],
-      scriptSrc: ["'self'", 'code.jquery.com'],
-      imgSrc: ["'self'", 'cdn.freecodecamp.org'],
+      styleSrc: ["'self'", 'https://fonts.googleapis.com'],
+      fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+      scriptSrc: ["'self'"],
+      imgSrc: ["'self'"],
       FormAction: ["'self'"],
       baseUri: ["'self'"],
-      frameAncestors: ["'self'", "replit.com"],
+      frameAncestors: ["'self'"],
       connectSrc: ["'self'"],
     }
   },
