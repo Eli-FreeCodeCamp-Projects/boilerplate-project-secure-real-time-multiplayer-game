@@ -4,12 +4,17 @@ const bodyParser = require('body-parser');
 const expect = require('chai');
 const socket = require('socket.io');
 const cors = require('cors');
-
+const http = require('http');
 const fccTestingRoutes = require('./routes/fcctesting.js');
 const runner = require('./test-runner.js');
+const gameRoutes = require('./routes/game.js');
 const helmet = require('helmet');
 
 const app = express();
+
+const httpServer = http.createServer(app);
+const io = new socket.Server(httpServer);
+
 //-> Set up helmet
 app.use(helmet({
   frameguard: {         // configure
@@ -78,7 +83,7 @@ app.use(function(req, res, next) {
 const portNum = process.env.PORT || 3000;
 
 // Set up server and tests
-const server = app.listen(portNum, () => {
+const server = httpServer.listen(portNum, () => {
   console.log(`Listening on port ${portNum}`);
   if (process.env.NODE_ENV==='test') {
     console.log('Running Tests...');
