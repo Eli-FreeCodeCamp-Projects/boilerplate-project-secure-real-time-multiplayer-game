@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const expect = require('chai');
 const socket = require('socket.io');
 const cors = require('cors');
 const http = require('http');
