@@ -71,7 +71,10 @@ app.route('/')
 
 //For FCC testing purposes
 fccTestingRoutes(app);
-    
+
+// Game socket routes
+gameRoutes(io);
+
 // 404 Not Found Middleware
 app.use(function(req, res, next) {
   res.status(404)
