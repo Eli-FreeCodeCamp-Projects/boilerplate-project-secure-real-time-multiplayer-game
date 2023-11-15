@@ -1,7 +1,10 @@
 body {
   margin: 20px;
 }
+
+.m-25 {
   margin: 25px;
+}
 
 code {
   background: #d0d0d5;
